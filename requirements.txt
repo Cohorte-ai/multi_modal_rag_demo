@@ -1,0 +1,9 @@
+langchain
+python-dotenv
+unstructured[local-inference]==0.5.6
+chromadb # Vector storage
+openai # For embeddings
+tiktoken  # For embeddings
+pymupdf
+rapidocr-onnxruntime
+streamlit
