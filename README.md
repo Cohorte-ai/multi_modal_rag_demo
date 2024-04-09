@@ -1,49 +1,48 @@
 # Multimodal RAG
 
-This project leverages the power of multimodal data processing to create and query a knowledge base. The goal is to extract meaningful information from PDF documents and provide relevant answers to user queries based on the document content. This README outlines the core concepts, components, and steps involved in setting up and using the project.
-
 ## Overview
 
-The project consists of two main scripts: `create_database.py` and `query_data.py`, along with a `requirements.txt` file for dependency management. The system integrates text extraction, image processing, and semantic embeddings to generate a searchable knowledge database from a collection of PDF documents.
+This project used Multimodal RAG (Retrieval-Augmented Generation) technique to extract, process, and query information from PDF documents through a seamless integration of Optical Character Recognition (OCR), Natural Language Processing (NLP), and innovative machine learning technologies. This project harnesses the power of state-of-the-art AI models to provide a robust platform for information retrieval and content understanding across various formats.
 
-### Core Concepts
+## Features
 
-- **Multimodal Data Processing**: The project handles both text and image data extracted from PDF files, acknowledging the diverse nature of document content.
-- **Document Embedding**: It transforms extracted text into high-dimensional vectors using OpenAI embeddings. This representation facilitates semantic search capabilities.
-- **Knowledge Database**: Utilizes Chroma, a vector storage solution, to store and efficiently query the embedded documents.
-- **Semantic Search**: Answers queries by finding the most relevant document segments based on semantic similarity to the query text.
+- **PDF and Image Processing**: Automated extraction of text and imagery from PDF files, converting all accessible information into machine-readable formats.
+- **Image-to-Text Conversion**: Utilizes the OpenAI API for transforming images into descriptive text, enabling further analysis and indexing.
+- **Advanced Text and Image Indexing**: Leverages the Chroma vector database for embedding and efficient similarity searching of text and image-derived content.
+- **Interactive Query Interface**: A user-friendly web interface built with Streamlit, allowing for intuitive searching and exploration of indexed content.
 
-### Components
+## Technical Components
 
-1. **Document Loaders**:
-   - **DirectoryLoader**: Scans a specified directory for PDF files to process.
-   - **PyMuPDFLoader & PyMuPDFLoaderImage**: Extracts text and optionally images from PDF documents.
+- **LangChain**: Orchestrates document loading, text extraction, splitting, and the integration of NLP workflows.
+- **OpenAI APIs (GPT and Vision Models)**: For high-accuracy image-to-text conversion and generating text embeddings that capture deep semantic meanings.
+- **Chroma**: Employs a vector-based approach to store and retrieve text embeddings, facilitating fast and relevant similarity searches.
+- **Streamlit**: Powers the interactive web interface, making it easy for users to query the database and receive instant, relevant responses.
 
-2. **Text Splitter**:
-   - **RecursiveCharacterTextSplitter**: Splits document text into manageable chunks for processing and embedding.
+## Machine Learning Concepts
 
-3. **Embeddings**:
-   - **OpenAIEmbeddings**: Generates semantic embeddings for text chunks, facilitating similarity searches.
+### Optical Character Recognition (OCR)
+Utilized for converting different types of images containing textual information into machine-encoded text, enabling digital processing and analysis.
 
-4. **Vector Storage (Chroma)**:
-   - Stores document embeddings in a searchable format, allowing for efficient similarity-based queries.
+### Natural Language Processing (NLP)
+Involves the use of algorithms to understand and manipulate human language. This project employs NLP to analyze, understand, and generate human language from the text extracted from documents and images.
 
-5. **Query and Response Generation**:
-   - Uses a similarity search to find the most relevant document chunks to a user query and generates a contextual prompt for a language model to answer the query.
+### Embeddings and Vector Databases
+Transforms text into high-dimensional vectors or embeddings, allowing the comparison of semantic similarities between pieces of text. Chroma, a vector database, is used to efficiently store and query these embeddings.
 
-### Setup
+### Retrieval-Augmented Generation (RAG)
+Combines the retrieval of relevant documents or text chunks with state-of-the-art language generation models. This approach enhances the quality and relevance of generated text responses to queries, by grounding them in the content extracted from the multimodal data sources (PDFs and images).
 
-1. Install required Python packages:
-   ```bash
-   pip install -r requirements.txt
-   ```
-2. Prepare your environment:
-    Place your PDF documents in a directory named data/raw.
-    Ensure you have a .env file with necessary configurations (e.g., API keys).
-3. Generating the Knowledge Database
- Run create_database.py to load documents from the specified directory, extract text (and optionally images), embed the text, and save the data into Chroma for future querying.
-4. Querying the Database
-Run query_data.py with your query text to search the knowledge database and get relevant information based on the content of the loaded documents.
-5. Dependencies
-See requirements.txt for a list of Python packages required to run the project.
+### Multimodal Learning
+Integrates and processes information from various types of data, such as text and images, enhancing the model's understanding and capability to generate comprehensive and contextually relevant responses.
 
+## Setup
+
+1. Clone the repository.
+2. Install required dependencies: `pip install -r requirements.txt`.
+3. Configure the `.env` file with necessary environment variables (`OPENAI_API_KEY`).
+
+## Usage
+
+- Execute `python create_database.py` to process the documents, images, and populate the database.
+- Launch the Streamlit application: `streamlit run app.py`.
+- Visit the provided URL to start querying the system.

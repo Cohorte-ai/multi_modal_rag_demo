@@ -11,13 +11,17 @@ load_dotenv()
 CHROMA_PATH = "chroma"
 
 PROMPT_TEMPLATE = """
-Answer the question based only on the following context:
+Please provide an answer to the question, using only the context provided below. Ensure your response is fully informed by and directly relevant to this specific context, without exceeding its scope or introducing external information:
 
 {context}
 
 ---
 
-Answer the question based on the above context: {question}
+Based on the context given, please respond to the following question. Your answer should:
+- Be comprehensive and conclusive, without being prematurely truncated.
+- Utilize bulleted lists for clarity and organization, whenever possible, instead of consolidating all information into a single paragraph.
+
+Question: {question}
 """
 
 
@@ -27,7 +31,7 @@ def main():
     # User input for query text
     query_text = st.text_input("Enter your query:")
 
-    if st.button("Search"):
+    if st.button("Submit"):
         # Prepare the DB
         embedding_function = OpenAIEmbeddings()
         db = Chroma(persist_directory=CHROMA_PATH, embedding_function=embedding_function)
@@ -43,10 +47,10 @@ def main():
         prompt = prompt_template.format(context=context_text, question=query_text)
 
         # Display context and query
-        st.subheader("Context:")
-        st.text(context_text)
-        st.subheader("Query:")
-        st.text(query_text)
+        # st.subheader("Context:")
+        # st.text(context_text)
+        # st.subheader("Query:")
+        # st.text(query_text)
 
         # Initialize ChatOpenAI model
         model = ChatOpenAI()
@@ -57,9 +61,9 @@ def main():
         # Display response and sources
         sources = [doc.metadata.get("source", None) for doc, _score in results]
         st.subheader("Response:")
-        st.text(response_text)
+        st.write(response_text)
         st.subheader("Sources:")
-        st.text(", ".join(filter(None, sources)))  # Remove None values and join sources with comma
+        st.write("\n\n".join(filter(None, sources)))  # Remove None values and join sources with comma
 
 
 if __name__ == "__main__":
