@@ -4,6 +4,9 @@
 
 This project used Multimodal RAG (Retrieval-Augmented Generation) technique to extract, process, and query information from PDF documents through a seamless integration of Optical Character Recognition (OCR), Natural Language Processing (NLP), and innovative machine learning technologies. This project harnesses the power of state-of-the-art AI models to provide a robust platform for information retrieval and content understanding across various formats.
 
+## Demo
+You checkout the demo at https://drive.google.com/file/d/17DkFPHm3OQdsiEBXUUesDRBpxFJ0-rz8/view?usp=sharing
+
 ## Features
 
 - **PDF and Image Processing**: Automated extraction of text and imagery from PDF files, converting all accessible information into machine-readable formats.
