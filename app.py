@@ -24,9 +24,29 @@ Based on the context given, please respond to the following question. Your answe
 Question: {question}
 """
 
+APP_TITLE = "Multimodal RAG for PDFs"
+SVG_ICON_PATH = 'resources/static/cohorte_logo_content.svg'
+
+import base64
+
+# Read the SVG file and encode it
+with open(SVG_ICON_PATH, 'rb') as file:
+    data = file.read()
+    b64 = base64.b64encode(data).decode("utf-8")
+    image_html = f'<img src="data:image/svg+xml;base64,{b64}" style="width:50px; height:auto;"/>'
+
+# Combine the image HTML and the Title in Markdown
+combined_html_title = f"""
+<div style='display: flex; align-items: center;'>
+    {image_html}
+    <h1 style='margin-left: 20px;'>{APP_TITLE}</h1>
+</div>
+"""
+
 
 def main():
-    st.title("Query Data")
+    # Display the combined SVG and Title
+    st.markdown(combined_html_title, unsafe_allow_html=True)
 
     # User input for query text
     query_text = st.text_input("Enter your query:")
