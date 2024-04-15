@@ -1,3 +1,4 @@
+import base64
 import streamlit as st
 from langchain.vectorstores.chroma import Chroma
 from langchain.embeddings import OpenAIEmbeddings
@@ -27,7 +28,6 @@ Question: {question}
 APP_TITLE = "Multimodal RAG for PDFs"
 SVG_ICON_PATH = 'resources/static/cohorte_logo_content.svg'
 
-import base64
 
 # Read the SVG file and encode it
 with open(SVG_ICON_PATH, 'rb') as file:
@@ -44,7 +44,15 @@ combined_html_title = f"""
 """
 
 
+def load_css(file_name):
+    with open(file_name) as css:
+        st.markdown(f'<style>{css.read()}</style>', unsafe_allow_html=True)
+
+
 def main():
+
+    load_css('style.css')
+
     # Display the combined SVG and Title
     st.markdown(combined_html_title, unsafe_allow_html=True)
 
@@ -54,7 +62,8 @@ def main():
     if st.button("Submit"):
         # Prepare the DB
         embedding_function = OpenAIEmbeddings()
-        db = Chroma(persist_directory=CHROMA_PATH, embedding_function=embedding_function)
+        db = Chroma(persist_directory=CHROMA_PATH,
+                    embedding_function=embedding_function)
 
         # Search the DB
         results = db.similarity_search_with_relevance_scores(query_text, k=3)
@@ -62,9 +71,11 @@ def main():
             st.error(f"Unable to find matching results.{results}")
             return
 
-        context_text = "\n\n---\n\n".join([doc.page_content for doc, _score in results])
+        context_text = "\n\n---\n\n".join(
+            [doc.page_content for doc, _score in results])
         prompt_template = ChatPromptTemplate.from_template(PROMPT_TEMPLATE)
-        prompt = prompt_template.format(context=context_text, question=query_text)
+        prompt = prompt_template.format(
+            context=context_text, question=query_text)
 
         # Display context and query
         # st.subheader("Context:")
@@ -83,7 +94,8 @@ def main():
         st.subheader("Response:")
         st.write(response_text)
         st.subheader("Sources:")
-        st.write("\n\n".join(filter(None, sources)))  # Remove None values and join sources with comma
+        # Remove None values and join sources with comma
+        st.write("\n\n".join(filter(None, sources)))
 
 
 if __name__ == "__main__":
